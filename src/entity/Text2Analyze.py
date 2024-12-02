@@ -43,6 +43,7 @@ class Text2Analyze:
         txt = f'''
         Character count in this text: {char_count}
         Word count in this text: {sum(word_count)}
+        Paragraph count: {len(self.paragraphs)}
         =================
         Word count list: {word_count}
         Word lengths list: {self.word_len_list()}
