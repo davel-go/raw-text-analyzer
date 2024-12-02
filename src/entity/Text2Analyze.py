@@ -45,8 +45,8 @@ class Text2Analyze:
         Word count in this text: {sum(word_count)}
         Paragraph count: {len(self.paragraphs)}
         =================
-        Word count list: {word_count}
-        Word lengths list: {self.word_len_list()}
+        Word count list (words per sentence): {word_count}
+        Word lengths list (length of words): {self.word_len_list()}
         Avg word length: {self.avg_word_len()}
         =================
         Pause positions: {self.pause_positions()}
