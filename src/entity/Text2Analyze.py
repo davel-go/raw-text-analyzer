@@ -39,10 +39,12 @@ class Text2Analyze:
 
     def show_stats(self):
         char_count = self.char_count()
+        word_count = self.word_count_list()
         txt = f'''
         Character count in this text: {char_count}
+        Word count in this text: {sum(word_count)}
         =================
-        Word count list: {self.word_count_list()}
+        Word count list: {word_count}
         Word lengths list: {self.word_len_list()}
         Avg word length: {self.avg_word_len()}
         =================
