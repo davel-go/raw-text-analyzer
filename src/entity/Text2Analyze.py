@@ -20,8 +20,20 @@ class Text2Analyze:
         freq = Counter(palabras)
         return dict(freq)
 
+    def char_count(self):
+        return sum([sum(p.char_count) for p in self.paragraphs])
+
     def __str__(self):
         txt = ""
         for p in self.paragraphs:
             txt += f"{p}\n"
         return txt
+
+    def show_stats(self):
+        char_count = self.char_count()
+        txt = f'''
+        Character count in this text: {char_count}
+        Word count list: {self.word_count_list()}
+        Pause positions: {self.pause_positions()}
+        '''
+        print(txt)
