@@ -1,6 +1,7 @@
 from src.entity.Paragraph import Paragraph
 from collections import Counter
 import re
+import numpy as np
 
 
 class Text2Analyze:
@@ -50,6 +51,9 @@ class Text2Analyze:
     def show_stats(self):
         char_count = self.char_count()
         word_count = self.word_count_list()
+        # Cálculo de estadísticas
+        media = np.mean(self.pause_positions())
+        st_dev = np.std(self.pause_positions())
 
         txt = f'''
         ============================================================
@@ -64,6 +68,8 @@ class Text2Analyze:
                 Avg word length:                        {self.avg_word_len()}        
         ============================================================
         Pause positions: {self.pause_positions()}
-                Avg pause:                              {round( sum(self.pause_positions()) / len(self.pause_positions()), 2)}
+                Avg pause (media):                      {media:.2f}      
+                Standard deviation:                     {st_dev:.2f}
         '''
+        # {round( sum(self.pause_positions()) / len(self.pause_positions()), 2)}
         print(txt)
