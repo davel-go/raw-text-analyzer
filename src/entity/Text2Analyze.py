@@ -23,6 +23,14 @@ class Text2Analyze:
     def char_count(self):
         return sum([sum(p.char_count) for p in self.paragraphs])
 
+    def avg_word_len(self):
+        return sum([p.avg_word_len for p in self.paragraphs]) / len(self.paragraphs)
+
+    def word_len_list(self):
+        ls = list()
+        for p in self.paragraphs: ls += p.word_len_list
+        return ls
+
     def __str__(self):
         txt = ""
         for p in self.paragraphs:
@@ -33,7 +41,11 @@ class Text2Analyze:
         char_count = self.char_count()
         txt = f'''
         Character count in this text: {char_count}
+        =================
         Word count list: {self.word_count_list()}
+        Word lengths list: {self.word_len_list()}
+        Avg word length: {self.avg_word_len()}
+        =================
         Pause positions: {self.pause_positions()}
         '''
         print(txt)

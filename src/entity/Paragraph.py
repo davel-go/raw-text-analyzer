@@ -8,6 +8,8 @@ class Paragraph:
         self.sentences: [Sentence] = [Sentence(s.strip()) for s in re.split(r'[.!?]', text) if s.strip()]
         self.char_count = [len(s.content) for s in self.sentences]
         self.word_count = [len(s.words) for s in self.sentences]
+        self.word_len_list = [item for s in self.sentences for item in s.word_len_list]
+        self.avg_word_len = sum(self.word_len_list) / len(self.word_len_list)
         self.pause_positions = [item for s in self.sentences for item in s.pause_positions()]
 
     def __str__(self):
