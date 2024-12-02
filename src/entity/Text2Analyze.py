@@ -5,13 +5,16 @@ import re
 
 class Text2Analyze:
     def __init__(self, text):
+        self.pp = None
         paragraphs = re.split(r'\n+', text)
         self.content = text
         self.paragraphs: [Paragraph] = [Paragraph(p.strip()) for p in paragraphs if p.strip()]
         self.senteces_per_paragraph = [len(p.sentences) for p in self.paragraphs]
 
     def pause_positions(self):
-        return [item for p in self.paragraphs for item in p.pause_positions]
+        if self.pp is None:
+            self.pp = [item for p in self.paragraphs for item in p.pause_positions]
+        return self.pp
 
     def word_count_list(self):
         return [words for p in self.paragraphs for words in p.word_count]
@@ -61,5 +64,6 @@ class Text2Analyze:
                 Avg word length:                        {self.avg_word_len()}        
         ============================================================
         Pause positions: {self.pause_positions()}
+                Avg pause:                              {round( sum(self.pause_positions()) / len(self.pause_positions()), 2)}
         '''
         print(txt)
