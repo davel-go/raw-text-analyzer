@@ -37,10 +37,13 @@ class Sentence:
             "OTHER": []  # Categoría para palabras que no encajen en las anteriores
         }
 
+        punct_count = 0
         for i, token in enumerate(doc):
+            if token.pos_ == "PUNCT":
+                punct_count += 1
             info_palabra = {
                 "word": token.text,
-                "position": i + 1,
+                "position": i - punct_count + 1,
                 "morphology": token.morph.to_dict()
             }
 
