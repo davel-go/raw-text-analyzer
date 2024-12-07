@@ -1,4 +1,6 @@
 import re
+import spacy
+nlp = spacy.load("es_core_news_sm")
 
 
 class Sentence:
@@ -17,6 +19,37 @@ class Sentence:
         parts = re.split(r'[,:;.\?!]', self.content)
         pauses = [len(p.strip().split()) for p in parts if p.strip()]
         return pauses
+
+    def nlp_analysis(self):
+        doc = nlp(self.content)
+        categories = {
+            "VERB": [],
+            "NOUN": [],
+            "ADJ": [],
+            "ADV": [],
+            "PRON": [],
+            "DET": [],
+            "ADP": [],
+            "AUX": [],
+            "CONJ": [],
+            "NUM": [],
+            "PUNCT": [],
+            "OTHER": []  # Categoría para palabras que no encajen en las anteriores
+        }
+
+        for i, token in enumerate(doc):
+            info_palabra = {
+                "word": token.text,
+                "position": i + 1,
+                "morphology": token.morph.to_dict()
+            }
+
+            if token.pos_ in categories:
+                categories[token.pos_].append(info_palabra)
+            else:
+                categories["OTHER"].append(info_palabra)
+
+        return categories
 
     def __str__(self):
         return self.content
