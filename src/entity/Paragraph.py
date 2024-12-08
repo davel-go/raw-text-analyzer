@@ -10,13 +10,15 @@ class Paragraph:
         self.word_categories = None
         self.content = text
         self.sentences: [Sentence] = [Sentence(s.strip()) for s in re.split(r'[.!?]', text) if s.strip()]
-        for s in self.sentences:
-            s.nlp_analysis()
         self.char_count = [len(s.content) for s in self.sentences]
         self.word_count = [len(s.words) for s in self.sentences]
         self.word_len_list = [item for s in self.sentences for item in s.word_len_list]
         self.avg_word_len = sum(self.word_len_list) / len(self.word_len_list)
         self.pause_positions = [item for s in self.sentences for item in s.pause_positions()]
+
+    def nlp_analysis(self):
+        for s in self.sentences:
+            s.nlp_analysis()
         self.combine_word_categories()
         self.combine_word_categories_len()
         self.calculate_avg_word_categories()
