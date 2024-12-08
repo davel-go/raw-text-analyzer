@@ -5,6 +5,8 @@ nlp = spacy.load("es_core_news_sm")
 
 class Sentence:
     def __init__(self, text : str):
+        self.word_categories_len = None
+        self.word_categories = None
         self.content = text
         self.words = re.findall(r'\b[\wáéíóúüñÁÉÍÓÚÜÑ]+\b', text)
         self.syllables = re.findall(r'[aeiouáéíóúü]', text.lower())
@@ -52,7 +54,16 @@ class Sentence:
             else:
                 categories["OTHER"].append(info_palabra)
 
+        self.word_categories = categories
+        self.count_word_types()
         return categories
+
+    def count_word_types(self):
+        cats = self.word_categories
+        for cat, words in cats.items():
+            cats[cat] = len(words)
+        self.word_categories_len = cats
+        return True
 
     def __str__(self):
         return self.content
