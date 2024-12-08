@@ -59,8 +59,8 @@ class Sentence:
         return categories
 
     def count_word_types(self):
-        cats = self.word_categories
-        for cat, words in cats.items():
+        cats = dict()
+        for cat, words in self.word_categories.items():
             cats[cat] = len(words)
         self.word_categories_len = cats
         return True
