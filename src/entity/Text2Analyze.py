@@ -1,11 +1,15 @@
 from src.entity.Paragraph import Paragraph
 from collections import Counter
+from src.util.data import get_cat_copy, get_cat_num_copy
 import re
 import numpy as np
 
 
 class Text2Analyze:
     def __init__(self, text):
+        self.avg_word_categories_len = None
+        self.word_categories_len = None
+        self.word_categories = None
         self.pp = None
         paragraphs = re.split(r'\n+', text)
         self.content = text
@@ -41,6 +45,23 @@ class Text2Analyze:
 
     def avg_senteces_per_paragraph(self):
         return round(self.sentence_count() / len(self.paragraphs), 2)
+    
+    def nlp_analysis(self):
+        self.word_categories_len = get_cat_num_copy()
+        self.word_categories = get_cat_copy()
+        for p in self.paragraphs:
+            p.nlp_analysis()
+            for cat, words in p.word_categories.items():
+                self.word_categories[cat].extend(words)
+        for cat, words in self.word_categories.items():
+            self.word_categories_len[cat] = sum(p.word_categories_len[cat] for p in self.paragraphs)
+
+        self.word_categories_len["PUNCT"] += self.sentence_count()
+        
+        self.avg_word_categories_len = get_cat_num_copy()
+        for cat, num in self.word_categories_len.items():
+            self.avg_word_categories_len[cat] = round(num / self.sentence_count(), 2)
+        
 
     def __str__(self):
         txt = ""
