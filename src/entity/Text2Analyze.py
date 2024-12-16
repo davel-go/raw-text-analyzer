@@ -55,8 +55,6 @@ class Text2Analyze:
                 self.word_categories[cat].extend(words)
         for cat, words in self.word_categories.items():
             self.word_categories_len[cat] = sum(p.word_categories_len[cat] for p in self.paragraphs)
-
-        self.word_categories_len["PUNCT"] += self.sentence_count()
         
         self.avg_word_categories_len = get_cat_num_copy()
         for cat, num in self.word_categories_len.items():

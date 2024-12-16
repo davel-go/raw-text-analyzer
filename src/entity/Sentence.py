@@ -42,6 +42,13 @@ class Sentence:
             else:
                 categories["OTHER"].append(info_palabra)
 
+        categories["PUNCT"].append({
+            "word": ".",
+            "morphology":{
+                'PunctType': 'Dot'
+            }
+        })
+
         self.word_categories = categories
         self.count_word_types()
         return categories
