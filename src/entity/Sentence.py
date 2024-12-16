@@ -1,5 +1,7 @@
 import re
 import spacy
+from src.util.data import get_cat_copy
+
 nlp = spacy.load("es_core_news_sm")
 
 
@@ -24,21 +26,7 @@ class Sentence:
 
     def nlp_analysis(self):
         doc = nlp(self.content)
-        categories = {
-            "VERB": [],
-            "NOUN": [],
-            "ADJ": [],
-            "ADV": [],
-            "PRON": [],
-            "DET": [],
-            "ADP": [],
-            "AUX": [],
-            "CONJ": [],
-            "NUM": [],
-            "PUNCT": [],
-            "OTHER": []  # Categoría para palabras que no encajen en las anteriores
-        }
-
+        categories = get_cat_copy()
         punct_count = 0
         for i, token in enumerate(doc):
             if token.pos_ == "PUNCT":
